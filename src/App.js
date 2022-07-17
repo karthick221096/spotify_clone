@@ -17,7 +17,8 @@ function App() {
   useEffect(() =>{
     //when anything changes in url the below code will run and call the function getTokenFromUrl which will 
     //return hash from there we used to get the token
-    const hash = getTokenFromUrl();  
+    const hash = getTokenFromUrl(); 
+    console.log('the hash value is ',hash);
     window.location.hash = "";
     const _token = hash.access_token;
     if (_token){
@@ -35,13 +36,20 @@ function App() {
           user : user
         });
       })
+      spotify.getUserPlaylists().then((playlists) => {
+        dispatch({
+          type : 'SET_PLAYLISTS',
+          playlists : playlists,
+        })
+      })
     } 
   }, []);
+  console.log('the token is ', token);
   return (
     <div className="App">
     {
       token ? (
-        <Player />
+        <Player spotify={spotify} />
       ) : (
         <Login />
       )

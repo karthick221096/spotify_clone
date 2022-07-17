@@ -1,8 +1,10 @@
 export const authEndpoint = "https://accounts.spotify.com/authorize"
-const redirectUri = "http://localhost:3000/";
 
 //i got the client Id from spotify developer page
 const clientId = "16e6699504cb4bec98113ff701839c24";
+
+const redirectUri = "http://localhost:3000/";
+
 
 //defining the scope for spotify user
 const scopes = [
