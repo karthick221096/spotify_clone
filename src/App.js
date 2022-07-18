@@ -18,7 +18,7 @@ function App() {
     //when anything changes in url the below code will run and call the function getTokenFromUrl which will 
     //return hash from there we used to get the token
     const hash = getTokenFromUrl(); 
-    console.log('the hash value is ',hash);
+
     window.location.hash = "";
     const _token = hash.access_token;
     if (_token){
@@ -30,13 +30,22 @@ function App() {
       spotify.setAccessToken(_token)
       
       spotify.getMe().then(user =>{
-        
         dispatch({
           type : 'SET_USER',
           user : user
         });
       })
-      spotify.getUserPlaylists().then((playlists) => {
+
+      spotify.getPlaylist("6ehdSiG3d2TinBXr1r7ZK0").then(response => {
+        dispatch({
+          type:'SET_DISCOVER_WEEKLY',
+          discover_weekly : response,
+        })
+      })
+      
+
+
+      spotify.getUserPlaylists(user?.id,{}).then((playlists) => {
         dispatch({
           type : 'SET_PLAYLISTS',
           playlists : playlists,
@@ -44,7 +53,7 @@ function App() {
       })
     } 
   }, []);
-  console.log('the token is ', token);
+  
   return (
     <div className="App">
     {

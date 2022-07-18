@@ -13,6 +13,8 @@ const scopes = [
     "user-read-playback-state",
     "user-top-read",
     "user-modify-playback-state",
+    "playlist-read-collaborative",
+    "playlist-read-private"
 ];
 
 //get the acces token from url 
