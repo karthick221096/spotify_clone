@@ -10,6 +10,30 @@ import SongRow from './SongRow';
 function Body({spotify}) {
 
   const [{discover_weekly}, dispatch] = useDataLayerValue();
+  console.log('the spotify inside body is is',spotify);
+  const playSong = (id) => {
+    spotify
+      .play({
+        uris: [`spotify:track:${id}`],
+      })
+      .then((res) => {
+        console.log('the res inside body >> playSOng function is ',res);
+        spotify.getMyCurrentPlayingTrack().then((r) => {
+          console.log('the r inside body >> playSOng function is ',r);
+          dispatch({
+            type: "SET_ITEM",
+            item: r.item,
+          });
+          dispatch({
+            type: "SET_PLAYING",
+            playing: true,
+          });
+        });
+      });
+  };
+  // const playSong = (id) => {
+  //   console.log(id)
+  // }
   return (
     <div className='body'>
       <Header/>
@@ -32,7 +56,7 @@ function Body({spotify}) {
           <MoreHorizIcon />
         </div>
         {discover_weekly?.tracks.items.map((item) =>
-          <SongRow track={item.track} />
+          <SongRow playSong={playSong} track={item.track} />
         )}
       </div>
     </div>
