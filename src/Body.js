@@ -15,9 +15,7 @@ function Body({ spotify }) {
         uris: [`spotify:track:${id}`],
       })
       .then((res) => {
-        console.log("the res inside body >> playSOng function is ", res);
         spotify.getMyCurrentPlayingTrack().then((r) => {
-          console.log("the r inside body >> playSOng function is ", r);
           dispatch({
             type: "SET_ITEM",
             item: r.item,
@@ -29,9 +27,6 @@ function Body({ spotify }) {
         });
       });
   };
-  // const playSong = (id) => {
-  //   console.log(id)
-  // }
   return (
     <div className="body">
       <Header />

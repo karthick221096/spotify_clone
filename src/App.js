@@ -10,7 +10,7 @@ const spotify = new SpotifyWebApi();
 
 function App() {
   // push user and token into our Datalayer and console logging it
-  const [{ user, token }, dispatch] = useDataLayerValue();
+  const [{ user, token, currentPlayID }, dispatch] = useDataLayerValue();
 
   //using use effect hook which will run code when component load and based on a give condition
   useEffect(() => {
@@ -36,9 +36,8 @@ function App() {
       });
       // 21Y29gPX7JFNDsnjw0pR3I - gym workout playlist ID
       // 6ehdSiG3d2TinBXr1r7ZK0 - discoverweekly playlist id
-      // 5X6GcDc4xViEEp3Oq27WWb - cleverporgrammer playlist ID
-      spotify.getPlaylist("5X6GcDc4xViEEp3Oq27WWb").then((response) => {
-        console.log('the getplaylist respones is ', response);
+      // 5X6GcDc4xViEEp3Oq27WWb - cleverporgrammer playlist
+      spotify.getPlaylist("6ehdSiG3d2TinBXr1r7ZK0").then((response) => {
         dispatch({
           type: "SET_DISCOVER_WEEKLY",
           discover_weekly: response,
@@ -46,7 +45,6 @@ function App() {
       });
 
       spotify.getUserPlaylists(user?.id, {}).then((playlists) => {
-        console.log('the getuserPlaylists response is ',playlists)
         dispatch({
           type: "SET_PLAYLISTS",
           playlists: playlists,
